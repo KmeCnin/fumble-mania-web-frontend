@@ -1,9 +1,12 @@
-# Fumble Mania Web FrontEnd
+# fumble-mania-web-frontend
 
-**The online role-playing games platform.**
+This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
+version 0.12.1.
 
-Web client using AngularJS for the Fumble Mania project.
+## Build & development
 
-See also other parts of the project:
-- [Fumble Mania Rest BackEnd](https://github.com/KmeCnin/fumble-mania-rest-backend) using Symfony2
-- **Fumble Mania Mobile FrontEnd** (incoming)
+Run `grunt` for building and `grunt serve` for preview.
+
+## Testing
+
+Running `grunt test` will run the unit tests with karma.
