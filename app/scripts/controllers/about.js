@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name fumbleManiaWebFrontendApp.controller:AboutCtrl
+ * @name fumbleMania.controller:AboutCtrl
  * @description
  * # AboutCtrl
- * Controller of the fumbleManiaWebFrontendApp
+ * Controller of the fumbleMania
  */
-angular.module('fumbleManiaWebFrontendApp')
+angular.module('fumbleMania')
   .controller('AboutCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
