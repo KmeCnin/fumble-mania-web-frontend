@@ -9,34 +9,43 @@
  * Main module of the application.
  */
 angular
-.module('fumbleMania', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
-    'oauth',
-    'ui.materialize'
-])
-.config(function ($routeProvider, $locationProvider) {
-    
-    $locationProvider
-        .html5Mode(true)
-        .hashPrefix('!');
+    .module('fumbleMania', [
+        'ngAnimate',
+        'ngCookies',
+        'ngResource',
+        'restangular',
+        'ngRoute',
+        'ngSanitize',
+        'ngTouch',
+        'ui.materialize'
+    ])
+    .config(function ($routeProvider, RestangularProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'views/dashboard.html',
+                controller: 'DashboardCtrl',
+                controllerAs: 'dashboard'
+            })
+            .when('/login', {
+                templateUrl: 'views/login.html',
+                controller: 'LoginCtrl',
+                controllerAs: 'login'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
 
-    $routeProvider
-        .when('/', {
-            templateUrl: 'views/main.html',
-            controller: 'MainCtrl',
-            controllerAs: 'main'
-        })
-        .when('/about', {
-            templateUrl: 'views/about.html',
-            controller: 'AboutCtrl',
-            controllerAs: 'about'
-        })
-        .otherwise({
-            redirectTo: '/'
+        RestangularProvider.setBaseUrl('http://localhost/fumble-mania-rest-backend/web/app_dev.php/api/');
+        RestangularProvider.setRestangularFields({
+            id: '_id.$oid'
         });
-});
+
+        RestangularProvider.setRequestInterceptor(function(elem, operation, what) {
+
+            if (operation === 'put') {
+                elem._id = undefined;
+                return elem;
+            }
+            return elem;
+        })
+    });

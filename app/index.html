@@ -12,41 +12,17 @@
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="../bower_components/angular-materialize/css/style.css">
+        <link rel="stylesheet" href="../bower_components/materialize/dist/css/materialize.min.css">
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
     </head>
     <body ng-app="fumbleMania">
-        <!--[if lte IE 8]>
-          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+        <!--&lt;!&ndash;[if lte IE 8]>-->
+          <!--<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>-->
+        <!--<![endif]&ndash;&gt;-->
 
-        <div class="header">
-            <div class="navbar navbar-default" role="navigation">
-                <div class="container">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#/">fumbleManiaWebFrontend</a>
-                    </div>
-                    <div class="collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#/">Home</a></li>
-                            <li><a ng-href="#/about">About</a></li>
-                            <li><a ng-href="#/">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div ng-view=""></div>
-        </div>
-
-        <div class="footer">
-            <div class="container">
-                <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-            </div>
-        </div>
-
+        <div ng-view="" class="container"></div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <!--        <script>
@@ -62,6 +38,7 @@
 
         <!-- build:js(.) scripts/vendor.js -->
         <!-- bower:js -->
+        <script src="../bower_components/lodash/lodash.min.js"></script>
         <script src="../bower_components/angular/angular.min.js"></script>
         <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
         <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
@@ -69,6 +46,8 @@
         <script src="../bower_components/angular-route/angular-route.min.js"></script>
         <script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
         <script src="../bower_components/angular-touch/angular-touch.min.js"></script>
+        <script src="../bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
+        <script src="../bower_components/restangular/dist/restangular.min.js"></script>
         <script src="../bower_components/ngstorage/ngStorage.min.js"></script>
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/materialize/dist/js/materialize.min.js"></script>
@@ -78,8 +57,8 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/dashboard.js"></script>
+        <script src="scripts/controllers/login.js"></script>
         <!-- endbuild -->
     </body>
 </html>

@@ -1,0 +1,5 @@
+<h1>Tableau de bord</h1>
+<span>Bienvenue {{ user.username }}</span>
+<ul ng-if="campaigns" class="collection">
+    <li ng-repeat="campaign in campaigns" class="collection-item">{{ campaign.title }}</li>
+</ul>
