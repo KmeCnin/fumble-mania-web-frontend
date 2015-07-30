@@ -1,1 +1,25 @@
-<h1>Connexion</h1>
+<section ng-controller="LoginCtrl">
+    <h1>Connexion</h1>
+
+    <div class="row">
+        <form novalidate autocomplete="off" class="col s12 m10 l6 offset-m1 offset-l3">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input ng-model="user.username" id="username" type="email" class="validate" required autofocus>
+                            <label for="username" data-error="Merci de saisir un email valide">Email</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input ng-model="user.password" id="password" type="password" class="validate" required>
+                            <label for="password">Mot de passe</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <button ng-click="login(user)" type="submit" class="btn waves-effect valign-wrapper">Connexion</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

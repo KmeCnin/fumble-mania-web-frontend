@@ -8,6 +8,8 @@
  * Controller of the fumbleMania
  */
 angular.module('fumbleMania')
-    .controller('LoginCtrl', function () {
-
-    });
+    .controller('LoginCtrl', ['$scope', function ($scope) {
+        $scope.login = function(user) {
+            // TODO: login user
+        };
+    }]);

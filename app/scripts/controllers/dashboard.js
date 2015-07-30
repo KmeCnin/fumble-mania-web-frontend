@@ -9,5 +9,5 @@
  */
 angular.module('fumbleMania')
     .controller('DashboardCtrl', function ($scope, Restangular) {
-
+        $scope.campaigns = Restangular.all("campaigns").getList().$object;
     });
