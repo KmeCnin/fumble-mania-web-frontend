@@ -1,6 +1,6 @@
 <section ng-controller="DashboardCtrl">
     <h1>Tableau de bord</h1>
-    <span>Bienvenue {{ user.username }}</span>
+    <span>Bienvenue {{ user.name }}</span>
     <ul ng-if="campaigns.length > 0" class="collection">
         <li ng-repeat="campaign in campaigns" class="collection-item">{{ campaign.title }}</li>
     </ul>
