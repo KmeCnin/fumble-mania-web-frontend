@@ -20,7 +20,7 @@ angular.module('fumbleMania')
         {
             var deferred = $q.defer();
             localStorage.setItem(this.token_name, token);
-            return Restangular.one('users', 4).get().then(function (user) {
+            return Restangular.one('self').get().then(function (user) {
                 localStorage.setItem(authProvider.user_storage_name, JSON.stringify(user));
             });
         };
