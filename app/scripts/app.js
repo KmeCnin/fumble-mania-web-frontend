@@ -12,7 +12,6 @@ angular
     .module('fumbleMania', [
         'ngAnimate',
         'ngCookies',
-        'ngResource',
         'restangular',
         'ngRoute',
         'ngSanitize',

@@ -9,7 +9,6 @@
  */
 angular.module('fumbleMania')
     .controller('SecurityCtrl',
-    ['$scope', '$location', 'Restangular', 'authProvider', 'flashBag',
     function ($scope, $location, Restangular, authProvider, flashBag)
     {
         /**
@@ -20,11 +19,15 @@ angular.module('fumbleMania')
          */
         $scope.login = function(credentials)
         {
-            Restangular.all('login_check').post(credentials).then(function (data) {
+            Restangular.all('login_check').post(credentials)
+            .then(function (data) {
                 // Authentication
-                localStorage.setItem(authProvider.token_name, data.token);
-                flashBag.success('Bienvenue.');
-                $location.path('/');
+                authProvider.authenticate(data.token).then(function() {
+                    flashBag.success('<span>Bienvenue <strong>'+authProvider.getUser().first_name+'</strong>.</span>');
+                    $location.path('/');
+                }, function (error) {
+                    flashBag.error(error.data.message);
+                });
             }, function(error) {
                 // Error
                 if (error.code === 401) {
@@ -41,8 +44,8 @@ angular.module('fumbleMania')
          */
         $scope.logout = function()
         {
-            localStorage.removeItem(authProvider.token_name);
-            flashBag.alert('A bientôt.');
+            flashBag.alert('<span>A bientôt <strong>'+authProvider.getUser().first_name+'</strong>.</span>');
+            authProvider.clear();
             $location.path('/login');
         };
 
@@ -56,4 +59,4 @@ angular.module('fumbleMania')
             return authProvider.isNotLoged();
         };
 
-    }]);
+    });

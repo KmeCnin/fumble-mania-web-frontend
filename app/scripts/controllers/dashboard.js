@@ -8,11 +8,9 @@
  * Controller of the fumbleMania
  */
 angular.module('fumbleMania')
-    .controller('DashboardCtrl', function ($scope, Restangular, jwtHelper)
+    .controller('DashboardCtrl', 
+    function ($scope, Restangular, authProvider)
     {
-        // JWT token
-        //var token = jwtHelper.decodeToken(localStorage.getItem('token'));
-
-        //$scope.user = Restangular.one("user").get().$object;
+        $scope.user = authProvider.getUser();
         $scope.campaigns = Restangular.all("campaigns").getList().$object;
     });

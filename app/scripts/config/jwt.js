@@ -2,7 +2,8 @@
 
 angular.module('fumbleMania')
     .config(function($httpProvider, jwtInterceptorProvider) {
-        jwtInterceptorProvider.urlParam = 'bearer';
+        // Uncomment in order to send token via url parameters instead of header
+        // jwtInterceptorProvider.urlParam = 'bearer';
         jwtInterceptorProvider.tokenGetter = function() {
             return localStorage.getItem('jwtToken');
         };
