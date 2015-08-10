@@ -6,19 +6,23 @@ angular.module('fumbleMania')
     {
         var authProvider = {};
 
+        // The name of the token in the localStorage.
         authProvider.token_name = 'jwtToken';
+        // The name of the user in the localStorage.
         authProvider.user_storage_name = 'user';
-        
+        // The delay between two refresh of the token.
+        authProvider.keep_alive_delay = 3600; // One hour
+
         /**
          * Authenticate an user by setting his token 
          * then retrieving his data from Rest API.
          * 
-         * @param string token JSON Web Token
+         * @param token JSON Web Token
          * @return Promise
          */
         authProvider.authenticate = function(token) 
         {
-            var deferred = $q.defer();
+            //var deferred = $q.defer();
             localStorage.setItem(this.token_name, token);
             return Restangular.one('self').get().then(function (user) {
                 localStorage.setItem(authProvider.user_storage_name, JSON.stringify(user));
@@ -26,23 +30,52 @@ angular.module('fumbleMania')
         };
 
         /**
-         * Say if user is authenticated.
+         * Getting a new JWToken from a valid one.
+         */
+        authProvider.refresh = function()
+        {
+            return Restangular.one('refresh').get().then(function (token) {
+                localStorage.setItem(authProvider.token_name, token);
+            });
+        };
+
+        /**
+         * Check if token need to be refreshed and refresh it if needed.
+         */
+        authProvider.keepAlive = function()
+        {
+            if (this.isNotLoged()) {
+                return false;
+            }
+
+            var generatedDate = parseInt(this.getToken().iat);
+            var now = Math.floor(Date.now() / 1000);
+            if (authProvider.keep_alive_delay <= now - generatedDate) {
+                this.refresh();
+                return true;
+            }
+
+            return false;
+        };
+
+        /**
+         * Test if user is authenticated.
          * 
          * @return bool
          */
         authProvider.isLoged = function()
         {
-            return null !== localStorage.getItem(this.token_name);
+            return null !== localStorage.getItem(this.token_name) && !jwtHelper.isTokenExpired(localStorage.getItem(this.token_name));
         };
 
         /**
-         * Say if user is not authenticated.
+         * Test if user is not authenticated.
          * 
          * @return bool
          */
         authProvider.isNotLoged = function()
         {
-            return null === localStorage.getItem(this.token_name);
+            return !this.isLoged();
         };
         
         /**
@@ -54,6 +87,19 @@ angular.module('fumbleMania')
         {
             if (null !== localStorage.getItem(this.token_name)) {
                 return jwtHelper.decodeToken(localStorage.getItem(this.token_name));
+            }
+            return false;
+        };
+
+        /**
+         * Parse JSON Web Token and return data.
+         *
+         * @return object
+         */
+        authProvider.getExpiresDate = function()
+        {
+            if (null !== localStorage.getItem(this.token_name)) {
+                return jwtHelper.getTokenExpirationDate(localStorage.getItem(this.token_name));
             }
             return false;
         };
@@ -71,7 +117,7 @@ angular.module('fumbleMania')
         /**
          * Get user authenticated.
          * 
-         * @return string
+         * @return object
          */
         authProvider.getUser = function()
         {
@@ -83,6 +129,7 @@ angular.module('fumbleMania')
          */
         authProvider.clear = function()
         {
+            // TODO: Send logout request to server in order to delete user in session.
             localStorage.removeItem(authProvider.token_name);
             localStorage.removeItem(authProvider.user_storage_name);
         };

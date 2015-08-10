@@ -12,5 +12,5 @@ angular.module('fumbleMania')
     function ($scope, Restangular, authProvider)
     {
         $scope.user = authProvider.getUser();
-        $scope.campaigns = Restangular.all("campaigns").getList().$object;
+        $scope.campaigns = Restangular.all('campaigns').getList().$object;
     });

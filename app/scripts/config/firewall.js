@@ -15,6 +15,9 @@ angular.module('fumbleMania')
                     event.preventDefault();
                     flashBag.warning('Vous devez vous authentifier.');
                     $location.path('/login');
+                } else {
+                    // Check if it's needed to refresh token
+                    authProvider.keepAlive();
                 }
             });
         }]);
