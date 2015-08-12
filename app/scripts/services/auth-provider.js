@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('fumbleMania')
-    .factory('authProvider', 
-    function ($q, jwtHelper, Restangular, flashBag)
+    .factory('authProvider', function ($q, jwtHelper, Restangular)
     {
         var authProvider = {};
 
@@ -22,7 +21,6 @@ angular.module('fumbleMania')
          */
         authProvider.authenticate = function(token) 
         {
-            //var deferred = $q.defer();
             localStorage.setItem(this.token_name, token);
             return Restangular.one('self').get().then(function (user) {
                 localStorage.setItem(authProvider.user_storage_name, JSON.stringify(user));
